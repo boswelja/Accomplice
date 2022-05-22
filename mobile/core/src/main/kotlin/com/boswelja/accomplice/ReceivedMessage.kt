@@ -1,5 +1,12 @@
 package com.boswelja.accomplice
 
+/**
+ * A message received from a [WearableNode].
+ *
+ * @param sourceNodeId See [WearableNode.nodeId].
+ * @param message The message that was received.
+ * @param payload An optional payload.
+ */
 data class ReceivedMessage(
     val sourceNodeId: String,
     val message: String,
