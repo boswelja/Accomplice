@@ -10,7 +10,7 @@ import java.io.OutputStream
  * A class for managing and using [WearablePlatform]s.
  */
 class WearableManager(
-    private vararg val platforms: WearablePlatform
+    private val platforms: List<WearablePlatform>
 ) {
 
     /**
