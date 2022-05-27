@@ -17,6 +17,10 @@ android {
 
 dependencies {
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
+
+    testImplementation(kotlin("test"))
+    testImplementation("io.mockk:mockk:1.12.4")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1")
 }
 
 detekt {
