@@ -13,4 +13,7 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Accomplice"
-include(":mobile:core")
+include(
+        ":mobile:core",
+        ":mobile:wearos"
+)
