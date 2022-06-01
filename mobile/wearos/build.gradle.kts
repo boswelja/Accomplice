@@ -18,7 +18,7 @@ android {
 dependencies {
     implementation(project(":mobile:core"))
     implementation("com.google.android.gms:play-services-wearable:17.1.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.2")
 }
 
 detekt {
