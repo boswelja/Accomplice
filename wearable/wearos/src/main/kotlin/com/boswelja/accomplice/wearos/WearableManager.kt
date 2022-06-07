@@ -133,6 +133,23 @@ class WearableManager(
     }
 
     /**
+     * Gets the [ConnectionState] for the mobile device paired to this wearable.
+     */
+    suspend fun getConnectionState(): ConnectionState {
+        val targetDevice = connectedDevice()
+        val reachableNodes = capabilityClient
+            .getCapability(applicationCapability, CapabilityClient.FILTER_REACHABLE)
+            .await()
+            .nodes
+
+        return if (reachableNodes.any { it.id == targetDevice.nodeId }) {
+            ConnectionState.CONNECTED
+        } else {
+            ConnectionState.DISCONNECTED
+        }
+    }
+
+    /**
      * Retrieves a [MobileNode] representing the mobile device paired to this wearable.
      */
     suspend fun connectedDevice(): MobileNode {
