@@ -63,4 +63,9 @@ interface WearablePlatform {
         path: String,
         block: suspend InputStream.() -> Unit
     ): Boolean
+
+    /**
+     * Gets the [ConnectionState] for the node with the specified ID.
+     */
+    suspend fun getConnectionState(nodeId: String): ConnectionState
 }

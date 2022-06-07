@@ -1,6 +1,7 @@
 package com.boswelja.accomplice.wearos
 
 import android.content.Context
+import com.boswelja.accomplice.ConnectionState
 import com.boswelja.accomplice.ReceivedMessage
 import com.boswelja.accomplice.WearableNode
 import com.boswelja.accomplice.WearablePlatform
@@ -102,6 +103,18 @@ internal class WearOSPlatformImpl(
         } catch (e: IOException) {
             // IOException reading data
             false
+        }
+    }
+
+    override suspend fun getConnectionState(nodeId: String): ConnectionState {
+        val reachableNodes = capabilityClient
+            .getCapability(applicationCapability, CapabilityClient.FILTER_REACHABLE)
+            .await()
+            .nodes
+        return if (reachableNodes.any { it.id == nodeId }) {
+            ConnectionState.CONNECTED
+        } else {
+            ConnectionState.DISCONNECTED
         }
     }
 }

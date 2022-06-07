@@ -98,6 +98,15 @@ class WearableManager(
     }
 
     /**
+     * Gets the [ConnectionState] for the node with the specified ID.
+     */
+    suspend fun getConnectionState(nodeId: String): ConnectionState {
+        val (platformName, id) = separatePlatformFromId(nodeId)
+        val platform = getPlatformMatching(platformName)
+        return platform.getConnectionState(id)
+    }
+
+    /**
      * Joins a unique identifier for the given platform with the given node ID. This is necessary
      * for [WearableManager] to be able to correctly identify the platform of origin for this node.
      */
