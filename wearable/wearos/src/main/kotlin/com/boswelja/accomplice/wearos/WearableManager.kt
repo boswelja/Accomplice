@@ -5,11 +5,11 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.wearable.CapabilityClient
 import com.google.android.gms.wearable.MessageClient
 import com.google.android.gms.wearable.Wearable
-import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
+import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 
@@ -49,9 +49,6 @@ class WearableManager(
             true
         } catch (e: ApiException) {
             // Message sending failed
-            false
-        } catch (e: CancellationException) {
-            // Coroutine was cancelled
             false
         }
     }
@@ -102,8 +99,8 @@ class WearableManager(
             }
             channelClient.close(channel).await()
             true
-        } catch (e: CancellationException) {
-            // Coroutine was cancelled
+        } catch (e: IOException) {
+            // IOException writing data
             false
         }
     }
@@ -129,8 +126,8 @@ class WearableManager(
             }
             channelClient.close(channel).await()
             true
-        } catch (e: CancellationException) {
-            // Coroutine was cancelled
+        } catch (e: IOException) {
+            // IOException reading data
             false
         }
     }
