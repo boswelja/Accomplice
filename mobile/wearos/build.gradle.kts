@@ -2,6 +2,7 @@ plugins {
     kotlin("android")
     id("com.android.library")
     id("io.gitlab.arturbosch.detekt")
+    id("org.jetbrains.dokka")
 }
 
 android {
@@ -26,4 +27,11 @@ dependencies {
 detekt {
     config = files("${rootDir.absolutePath}/config/detekt/detekt-base.yml")
     basePath = rootDir.absolutePath
+}
+
+tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
+    moduleName.set("mobile-wearos")
+    dokkaSourceSets.named("main") {
+        noAndroidSdkLink.set(false)
+    }
 }
