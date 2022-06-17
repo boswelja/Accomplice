@@ -17,7 +17,7 @@ import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 
-internal class WearOSPlatformImpl(
+internal class WearOsPlatformImpl(
     private val context: Context,
     private val applicationCapability: String
 ) : WearablePlatform {

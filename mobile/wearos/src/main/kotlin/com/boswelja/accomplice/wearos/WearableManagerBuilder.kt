@@ -9,5 +9,5 @@ import com.boswelja.accomplice.WearableManagerDsl
  */
 @WearableManagerDsl
 fun WearableManagerBuilder.registerWearOSPlatform(context: Context, applicationCapability: String) {
-    addPlatform(WearOSPlatformImpl(context, applicationCapability))
+    addPlatform(WearOsPlatformImpl(context, applicationCapability))
 }
