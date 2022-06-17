@@ -5,7 +5,6 @@ import com.boswelja.accomplice.ConnectionState
 import com.boswelja.accomplice.ReceivedMessage
 import com.boswelja.accomplice.WearableNode
 import com.boswelja.accomplice.WearablePlatform
-import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.wearable.CapabilityClient
 import com.google.android.gms.wearable.MessageClient.OnMessageReceivedListener
 import com.google.android.gms.wearable.Wearable
@@ -13,7 +12,6 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
-import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 
@@ -42,13 +40,8 @@ internal class WearOsPlatformImpl(
         message: String,
         payload: ByteArray?
     ): Boolean {
-        return try {
-            messageClient.sendMessage(nodeId, message, payload).await()
-            true
-        } catch (e: ApiException) {
-            // Message sending failed
-            false
-        }
+        messageClient.sendMessage(nodeId, message, payload).await()
+        return true
     }
 
     override fun receivedMessages(): Flow<ReceivedMessage> {
@@ -74,36 +67,24 @@ internal class WearOsPlatformImpl(
         nodeId: String,
         path: String,
         block: suspend OutputStream.() -> Unit
-    ): Boolean {
-        return try {
-            val channel = channelClient.openChannel(nodeId, path).await() ?: return false
-            channelClient.getOutputStream(channel).await().use {
-                it.block()
-            }
-            channelClient.close(channel).await()
-            true
-        } catch (e: IOException) {
-            // IOException writing data
-            false
+    ) {
+        val channel = channelClient.openChannel(nodeId, path).await()
+        channelClient.getOutputStream(channel).await().use {
+            it.block()
         }
+        channelClient.close(channel).await()
     }
 
     override suspend fun receiveData(
         nodeId: String,
         path: String,
         block: suspend InputStream.() -> Unit
-    ): Boolean {
-        return try {
-            val channel = channelClient.openChannel(nodeId, path).await() ?: return false
-            channelClient.getInputStream(channel).await().use {
-                it.block()
-            }
-            channelClient.close(channel).await()
-            true
-        } catch (e: IOException) {
-            // IOException reading data
-            false
+    ) {
+        val channel = channelClient.openChannel(nodeId, path).await()
+        channelClient.getInputStream(channel).await().use {
+            it.block()
         }
+        channelClient.close(channel).await()
     }
 
     override suspend fun getConnectionState(nodeId: String): ConnectionState {

@@ -1,6 +1,7 @@
 package com.boswelja.accomplice
 
 import kotlinx.coroutines.flow.Flow
+import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 
@@ -39,14 +40,13 @@ public interface WearablePlatform {
      * @param path A unique path for the data to be sent on.
      * @param block A block of code scoped to the [OutputStream]. The stream is closed automatically
      * once execution has completed. Note exceptions in this block will be caught automatically.
-     *
-     * @return true if the data was sent successfully, false otherwise.
      */
+    @Throws(IOException::class)
     public suspend fun sendData(
         nodeId: String,
         path: String,
         block: suspend OutputStream.() -> Unit
-    ): Boolean
+    )
 
     /**
      * Opens an [InputStream] to receive data from a specific node.
@@ -55,14 +55,13 @@ public interface WearablePlatform {
      * @param path A unique path to listen for incoming data on.
      * @param block A block of code scoped to the [InputStream]. The stream is closed automatically
      * once execution has completed. Note exceptions in this block will be caught automatically.
-     *
-     * @return true if the data was received successfully, false otherwise.
      */
+    @Throws(IOException::class)
     public suspend fun receiveData(
         nodeId: String,
         path: String,
         block: suspend InputStream.() -> Unit
-    ): Boolean
+    )
 
     /**
      * Gets the [ConnectionState] for the node with the specified ID.

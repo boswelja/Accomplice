@@ -1,7 +1,6 @@
 package com.boswelja.accomplice.wearos
 
 import android.content.Context
-import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.wearable.CapabilityClient
 import com.google.android.gms.wearable.MessageClient
 import com.google.android.gms.wearable.Wearable
@@ -43,14 +42,9 @@ public class WearableManager(
         message: String,
         payload: ByteArray?
     ): Boolean {
-        return try {
-            val target = connectedDevice()
-            messageClient.sendMessage(target.nodeId, message, payload).await()
-            true
-        } catch (e: ApiException) {
-            // Message sending failed
-            false
-        }
+        val target = connectedDevice()
+        messageClient.sendMessage(target.nodeId, message, payload).await()
+        return true
     }
 
     /**
@@ -84,25 +78,18 @@ public class WearableManager(
      * @param path A unique path for the data to be sent on.
      * @param block A block of code scoped to the [OutputStream]. The stream is closed automatically
      * once execution has completed. Note exceptions in this block will be caught automatically.
-     *
-     * @return true if the data was sent successfully, false otherwise.
      */
+    @Throws(IOException::class)
     public suspend fun sendData(
         path: String,
         block: suspend OutputStream.() -> Unit
-    ): Boolean {
-        return try {
-            val target = connectedDevice()
-            val channel = channelClient.openChannel(target.nodeId, path).await() ?: return false
-            channelClient.getOutputStream(channel).await().use {
-                it.block()
-            }
-            channelClient.close(channel).await()
-            true
-        } catch (e: IOException) {
-            // IOException writing data
-            false
+    ) {
+        val target = connectedDevice()
+        val channel = channelClient.openChannel(target.nodeId, path).await()
+        channelClient.getOutputStream(channel).await().use {
+            it.block()
         }
+        channelClient.close(channel).await()
     }
 
     /**
@@ -114,22 +101,17 @@ public class WearableManager(
      *
      * @return true if the data was received successfully, false otherwise.
      */
+    @Throws(IOException::class)
     public suspend fun receiveData(
         path: String,
         block: suspend InputStream.() -> Unit
-    ): Boolean {
-        return try {
-            val target = connectedDevice()
-            val channel = channelClient.openChannel(target.nodeId, path).await() ?: return false
-            channelClient.getInputStream(channel).await().use {
-                it.block()
-            }
-            channelClient.close(channel).await()
-            true
-        } catch (e: IOException) {
-            // IOException reading data
-            false
+    ) {
+        val target = connectedDevice()
+        val channel = channelClient.openChannel(target.nodeId, path).await()
+        channelClient.getInputStream(channel).await().use {
+            it.block()
         }
+        channelClient.close(channel).await()
     }
 
     /**
