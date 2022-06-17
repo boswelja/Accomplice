@@ -12,7 +12,7 @@ import kotlinx.coroutines.tasks.await
  *
  * @return true if we can interact with Wear OS APIs, or false otherwise.
  */
-suspend fun isWearOsAvailable(context: Context): Boolean {
+public suspend fun isWearOsAvailable(context: Context): Boolean {
     return try {
         // Get an availability checker
         val apiAvailability = GoogleApiAvailability.getInstance()

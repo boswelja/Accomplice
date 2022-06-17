@@ -13,10 +13,10 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFails
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class WearableManagerTest {
+public class WearableManagerTest {
 
     @Test
-    fun getNodes_loadsWithSinglePlatform() = runTest {
+    public fun getNodes_loadsWithSinglePlatform(): Unit = runTest {
         val testPlatform: WearablePlatform = mockk()
         val manager = wearableManager {
             addPlatform(testPlatform)
@@ -34,7 +34,7 @@ class WearableManagerTest {
     }
 
     @Test
-    fun getNodes_loadsWithMultiplePlatforms() = runTest {
+    public fun getNodes_loadsWithMultiplePlatforms(): Unit = runTest {
         val platform1: WearablePlatform = mockk()
         val platform2: WearablePlatform = mockk()
         val manager = wearableManager {
@@ -59,7 +59,7 @@ class WearableManagerTest {
     }
 
     @Test
-    fun sendMessage_withValidNode_sendsToPlatform() = runTest {
+    public fun sendMessage_withValidNode_sendsToPlatform(): Unit = runTest {
         val message = "my_message_path"
         val platform1Nodes = generateNodes(10)
 
@@ -79,7 +79,7 @@ class WearableManagerTest {
     }
 
     @Test
-    fun sendMessage_withInvalidId_throwsException() = runTest {
+    public fun sendMessage_withInvalidId_throwsException(): Unit = runTest {
         val message = "my_message_path"
 
         val platform1: WearablePlatform = mockk()
@@ -95,7 +95,7 @@ class WearableManagerTest {
     }
 
     @Test
-    fun receivedMessages_receivesFromAllPlatforms() = runTest {
+    public fun receivedMessages_receivesFromAllPlatforms(): Unit = runTest {
         val platform1: WearablePlatform = mockk()
         val platform2: WearablePlatform = mockk()
         val manager = wearableManager {

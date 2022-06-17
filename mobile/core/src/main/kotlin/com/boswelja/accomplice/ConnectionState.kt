@@ -3,7 +3,7 @@ package com.boswelja.accomplice
 /**
  * Possible connection states for [WearableNode]s in the network.
  */
-enum class ConnectionState {
+public enum class ConnectionState {
 
     /**
      * Indicates the node is connected and reachable.

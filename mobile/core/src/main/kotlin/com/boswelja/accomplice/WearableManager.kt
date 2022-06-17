@@ -9,14 +9,14 @@ import java.io.OutputStream
 /**
  * A class for managing and using [WearablePlatform]s.
  */
-class WearableManager(
+public class WearableManager(
     private val platforms: List<WearablePlatform>
 ) {
 
     /**
      * Retrieves a list of all [WearableNode]s found for all platforms.
      */
-    suspend fun getNodes(): List<WearableNode> {
+    public suspend fun getNodes(): List<WearableNode> {
         return platforms.flatMap { platform ->
             platform.getNodes().map {
                 it.copy(
@@ -36,7 +36,7 @@ class WearableManager(
      * @return true if the message was sent successfully, false otherwise. Note a successful send
      * does *not* guarantee successful delivery.
      */
-    suspend fun sendMessage(nodeId: String, message: String, payload: ByteArray? = null): Boolean {
+    public suspend fun sendMessage(nodeId: String, message: String, payload: ByteArray? = null): Boolean {
         val (platformName, id) = separatePlatformFromId(nodeId)
         val platform = getPlatformMatching(platformName)
         return platform.sendMessage(id, message, payload)
@@ -45,7 +45,7 @@ class WearableManager(
     /**
      * Flows all [ReceivedMessage]s from all platforms.
      */
-    fun receivedMessages(): Flow<ReceivedMessage> {
+    public fun receivedMessages(): Flow<ReceivedMessage> {
         return platforms
             .map { platform ->
                 platform.receivedMessages().map {
@@ -67,7 +67,7 @@ class WearableManager(
      *
      * @return true if the data was sent successfully, false otherwise.
      */
-    suspend fun sendData(
+    public suspend fun sendData(
         nodeId: String,
         path: String,
         block: suspend OutputStream.() -> Unit
@@ -87,7 +87,7 @@ class WearableManager(
      *
      * @return true if the data was received successfully, false otherwise.
      */
-    suspend fun receiveData(
+    public suspend fun receiveData(
         nodeId: String,
         path: String,
         block: suspend InputStream.() -> Unit
@@ -100,7 +100,7 @@ class WearableManager(
     /**
      * Gets the [ConnectionState] for the node with the specified ID.
      */
-    suspend fun getConnectionState(nodeId: String): ConnectionState {
+    public suspend fun getConnectionState(nodeId: String): ConnectionState {
         val (platformName, id) = separatePlatformFromId(nodeId)
         val platform = getPlatformMatching(platformName)
         return platform.getConnectionState(id)

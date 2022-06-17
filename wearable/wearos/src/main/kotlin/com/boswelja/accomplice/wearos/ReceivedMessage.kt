@@ -6,7 +6,7 @@ package com.boswelja.accomplice.wearos
  * @param message The message that was received.
  * @param payload An optional payload.
  */
-data class ReceivedMessage(
+public data class ReceivedMessage(
     val message: String,
     val payload: ByteArray?
 ) {

@@ -13,6 +13,8 @@ android {
         targetSdk = 32
         minSdk = 23
     }
+
+    kotlinOptions.freeCompilerArgs += "-Xexplicit-api=strict"
 }
 
 dependencies {

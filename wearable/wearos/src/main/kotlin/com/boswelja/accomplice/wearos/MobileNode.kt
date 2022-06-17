@@ -6,7 +6,7 @@ package com.boswelja.accomplice.wearos
  * @param nodeId The unique mobile device ID.
  * @param displayName The display name of the mobile device.
  */
-data class MobileNode(
+public data class MobileNode(
     val nodeId: String,
     val displayName: String
 )

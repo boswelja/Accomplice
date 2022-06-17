@@ -20,7 +20,7 @@ import java.io.OutputStream
  * @param applicationCapability A unique capability used to identify the mobile device in the node
  * map.
  */
-class WearableManager(
+public class WearableManager(
     private val context: Context,
     private val applicationCapability: String
 ) {
@@ -39,7 +39,7 @@ class WearableManager(
      * @return true if the message was sent successfully, false otherwise. Note a successful send
      * does *not* guarantee delivery.
      */
-    suspend fun sendMessage(
+    public suspend fun sendMessage(
         message: String,
         payload: ByteArray?
     ): Boolean {
@@ -56,7 +56,7 @@ class WearableManager(
     /**
      * Flows all [ReceivedMessage]s from the connected mobile device.
      */
-    fun receivedMessages(): Flow<ReceivedMessage> {
+    public fun receivedMessages(): Flow<ReceivedMessage> {
         return callbackFlow {
             val target = connectedDevice()
             val callback = MessageClient.OnMessageReceivedListener { messageEvent ->
@@ -87,7 +87,7 @@ class WearableManager(
      *
      * @return true if the data was sent successfully, false otherwise.
      */
-    suspend fun sendData(
+    public suspend fun sendData(
         path: String,
         block: suspend OutputStream.() -> Unit
     ): Boolean {
@@ -114,7 +114,7 @@ class WearableManager(
      *
      * @return true if the data was received successfully, false otherwise.
      */
-    suspend fun receiveData(
+    public suspend fun receiveData(
         path: String,
         block: suspend InputStream.() -> Unit
     ): Boolean {
@@ -135,7 +135,7 @@ class WearableManager(
     /**
      * Gets the [ConnectionState] for the mobile device paired to this wearable.
      */
-    suspend fun getConnectionState(): ConnectionState {
+    public suspend fun getConnectionState(): ConnectionState {
         val targetDevice = connectedDevice()
         val reachableNodes = capabilityClient
             .getCapability(applicationCapability, CapabilityClient.FILTER_REACHABLE)
@@ -152,7 +152,7 @@ class WearableManager(
     /**
      * Retrieves a [MobileNode] representing the mobile device paired to this wearable.
      */
-    suspend fun connectedDevice(): MobileNode {
+    public suspend fun connectedDevice(): MobileNode {
         val nodes = capabilityClient
             .getCapability(applicationCapability, CapabilityClient.FILTER_ALL)
             .await()

@@ -7,12 +7,12 @@ import java.io.OutputStream
 /**
  * An interface for connecting to a single Wearable platform (think Wear OS, Fitbit etc).
  */
-interface WearablePlatform {
+public interface WearablePlatform {
 
     /**
      * Retrieves a list of all [WearableNode]s from the platform.
      */
-    suspend fun getNodes(): List<WearableNode>
+    public suspend fun getNodes(): List<WearableNode>
 
     /**
      * Sends a message to the node with the given ID. Messages have no form of synchronization, and
@@ -25,12 +25,12 @@ interface WearablePlatform {
      * @return true if the message was sent successfully, false otherwise. Note a successful send
      * does *not* guarantee delivery.
      */
-    suspend fun sendMessage(nodeId: String, message: String, payload: ByteArray?): Boolean
+    public suspend fun sendMessage(nodeId: String, message: String, payload: ByteArray?): Boolean
 
     /**
      * Flows all [ReceivedMessage]s from this platform.
      */
-    fun receivedMessages(): Flow<ReceivedMessage>
+    public fun receivedMessages(): Flow<ReceivedMessage>
 
     /**
      * Opens an [OutputStream] to send data to a specific node.
@@ -42,7 +42,7 @@ interface WearablePlatform {
      *
      * @return true if the data was sent successfully, false otherwise.
      */
-    suspend fun sendData(
+    public suspend fun sendData(
         nodeId: String,
         path: String,
         block: suspend OutputStream.() -> Unit
@@ -58,7 +58,7 @@ interface WearablePlatform {
      *
      * @return true if the data was received successfully, false otherwise.
      */
-    suspend fun receiveData(
+    public suspend fun receiveData(
         nodeId: String,
         path: String,
         block: suspend InputStream.() -> Unit
@@ -67,5 +67,5 @@ interface WearablePlatform {
     /**
      * Gets the [ConnectionState] for the node with the specified ID.
      */
-    suspend fun getConnectionState(nodeId: String): ConnectionState
+    public suspend fun getConnectionState(nodeId: String): ConnectionState
 }

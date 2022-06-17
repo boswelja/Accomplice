@@ -7,7 +7,7 @@ package com.boswelja.accomplice
  * @param message The message that was received.
  * @param payload An optional payload.
  */
-data class ReceivedMessage(
+public data class ReceivedMessage(
     val sourceNodeId: String,
     val message: String,
     val payload: ByteArray?
