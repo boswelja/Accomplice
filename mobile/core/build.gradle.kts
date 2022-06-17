@@ -8,11 +8,11 @@ plugins {
 android {
     namespace = "com.boswelja.accomplice.core"
 
-    compileSdk = 32
+    compileSdk = rootProject.ext.get("compileSdk") as Int
 
     defaultConfig {
-        targetSdk = 32
-        minSdk = 23
+        targetSdk = rootProject.ext.get("targetSdk") as Int
+        minSdk = rootProject.ext.get("minSdk") as Int
     }
 
     kotlinOptions.freeCompilerArgs += "-Xexplicit-api=strict"

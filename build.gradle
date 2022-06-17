@@ -5,3 +5,9 @@ plugins {
     id("io.gitlab.arturbosch.detekt") version "1.20.0"
     id("org.jetbrains.dokka") version "1.6.21"
 }
+
+ext {
+    compileSdk = 33
+    targetSdk = 33
+    minSdk = 23
+}
