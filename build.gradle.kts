@@ -4,11 +4,26 @@ plugins {
     id("org.jetbrains.kotlin.android") version "1.7.0" apply false
     id("io.gitlab.arturbosch.detekt") version "1.20.0"
     id("org.jetbrains.dokka") version "1.6.21"
+    id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
 }
+
 ext.apply {
     set("compileSdk", 33)
     set("targetSdk", 33)
     set("minSdk", 23)
+}
+
+group = "io.github.boswelja.accomplice"
+version = findProperty("version") ?: "0.1.0"
+
+nexusPublishing {
+    repositories {
+        sonatype {
+            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+            snapshotRepositoryUrl
+                .set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+        }
+    }
 }
 
 tasks.register<Copy>("detektCollateReports") {

@@ -3,6 +3,8 @@ plugins {
     id("com.android.library")
     id("io.gitlab.arturbosch.detekt")
     id("org.jetbrains.dokka")
+    id("signing")
+    id("maven-publish")
 }
 
 android {
@@ -16,6 +18,13 @@ android {
     }
 
     kotlinOptions.freeCompilerArgs += "-Xexplicit-api=strict"
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
 }
 
 dependencies {
@@ -32,5 +41,40 @@ tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
     moduleName.set("wearable-wearos")
     dokkaSourceSets.named("main") {
         noAndroidSdkLink.set(false)
+    }
+}
+
+publishing {
+    publications {
+        register<MavenPublication>("release") {
+            pom {
+                name.set("wearable-wearos")
+                description.set("Easily connect a wearable \"accomplice\" to your app")
+                url.set("https://github.com/boswelja/Accomplice/tree/main/wearable/wearos")
+                licenses {
+                    license {
+                        name.set("GPLv3")
+                        url.set("https://github.com/boswelja/Accomplice/blob/main/LICENSE")
+                    }
+                }
+                developers {
+                    developer {
+                        id.set("boswelja")
+                        name.set("Jack Boswell")
+                        email.set("boswelja@outlook.com")
+                        url.set("https://github.com/boswelja")
+                    }
+                }
+                scm {
+                    connection.set("scm:git:github.com/boswelja/Accomplice.git")
+                    developerConnection.set("scm:git:ssh://github.com/boswelja/Accomplice.git")
+                    url.set("https://github.com/boswelja/Accomplice")
+                }
+            }
+
+            afterEvaluate {
+                from(components["release"])
+            }
+        }
     }
 }
