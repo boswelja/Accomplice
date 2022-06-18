@@ -1,4 +1,4 @@
-name: Generate GH Pages
+name: generate-gh-pages
 on:
   release:
     types: [created]
