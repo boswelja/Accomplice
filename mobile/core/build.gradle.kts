@@ -7,6 +7,8 @@ plugins {
     id("maven-publish")
 }
 
+group = "io.github.boswelja.accomplice"
+
 android {
     namespace = "com.boswelja.accomplice.core"
 
