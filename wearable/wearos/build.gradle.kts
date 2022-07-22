@@ -46,9 +46,17 @@ tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
     }
 }
 
+signing {
+    val signingKey: String? by project
+    val signingPassword: String? by project
+    useInMemoryPgpKeys(signingKey, signingPassword)
+    sign(publishing.publications)
+}
+
 publishing {
     publications {
         register<MavenPublication>("release") {
+            artifactId = "wearable-wearos"
             pom {
                 name.set("wearable-wearos")
                 description.set("Easily connect a wearable \"accomplice\" to your app")

@@ -60,6 +60,7 @@ signing {
 publishing {
     publications {
         register<MavenPublication>("release") {
+            artifactId = "mobile-core"
             pom {
                 name.set("mobile-core")
                 description.set("Easily connect a wearable \"accomplice\" to your app")

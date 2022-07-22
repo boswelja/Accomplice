@@ -57,6 +57,7 @@ signing {
 publishing {
     publications {
         register<MavenPublication>("release") {
+            artifactId = "mobile-wearos"
             pom {
                 name.set("mobile-wearos")
                 description.set("Easily connect a wearable \"accomplice\" to your app")
