@@ -55,7 +55,7 @@ publishing {
                 url.set("https://github.com/boswelja/Accomplice/tree/main/wearable/wearos")
                 licenses {
                     license {
-                        name.set("GPLv3")
+                        name.set("Apache-2.0")
                         url.set("https://github.com/boswelja/Accomplice/blob/main/LICENSE")
                     }
                 }

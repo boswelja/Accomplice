@@ -63,7 +63,7 @@ publishing {
                 url.set("https://github.com/boswelja/Accomplice/tree/main/mobile/wearos")
                 licenses {
                     license {
-                        name.set("GPLv3")
+                        name.set("Apache-2.0")
                         url.set("https://github.com/boswelja/Accomplice/blob/main/LICENSE")
                     }
                 }
