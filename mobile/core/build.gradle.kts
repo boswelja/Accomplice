@@ -30,11 +30,11 @@ android {
 }
 
 dependencies {
-    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3")
 
     testImplementation(kotlin("test"))
     testImplementation("io.mockk:mockk:1.12.4")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.2")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.3")
     testImplementation("app.cash.turbine:turbine:0.8.0")
 }
 

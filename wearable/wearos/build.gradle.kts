@@ -31,7 +31,7 @@ android {
 
 dependencies {
     implementation("com.google.android.gms:play-services-wearable:17.1.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.3")
 }
 
 detekt {
